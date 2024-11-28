@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <style>
+      header {
+        background-color: #fae9e9;
+        padding: 20px;
+        text-align: center;
+      }
+
+      #cart {
+        float: right;
+      }
+
+      main {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .product {
+        border: 1px solid black;
+        border-radius: 5px;
+        margin: 10px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .quantity {
+        width: 40px;
+      }
+
+      .total {
+        font-weight: bold;
+        margin-top: 20px;
+      }
+
+      #cart-items {
+        margin-top: 20px;
+        text-align: left;
+      }
+
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0;
+      }
+      img{
+        height: 300px;
+        width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Buy flowers</h1>
+      <div id="cart">Cart (<span id="cart-count">0</span>)</div>
+      <div class="total">Total: $<span id="total-bill">0.00</span></div>
+    </header>
+    <main>
+        <div class="product" data-name="Rose" data-price="20">
+          <img src="image/product0.jpg" alt="Rose" />
+          <h2>Rose</h2>
+          <p>$20.00</p>
+          <input type="number" class="quantity" value="1" min="1" />
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Tulip" data-price="30">
+          <img src="image/product1.jpg" alt="Tulip" />
+          <h2>Tulip</h2>
+          <p>$30.00</p>
+          <input type="number" class="quantity" value="1" min="1" />
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Daisy" data-price="35">
+          <img src="image/product2.jpg" alt="Daisy" />
+          <h2>Daisy</h2>
+          <p>$35.00</p>
+          <input type="number" class="quantity" value="1" min="1" />
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Sunflower" data-price="40">
+          <img src="image/product3.jpg" alt="Sunflower" />
+          <h2>Sunflower</h2>
+          <p>$40.00</p>
+          <input type="number" class="quantity" value="1" min="1" />
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Lily" data-price="25">
+          <img src="image/product4.jpg" alt="Lily" />
+          <h2>Lily</h2>
+          <p>$25.00</p>
+          <input type="number" class="quantity" value="1" min="1" />
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Orchid" data-price="50">
+          <img src="image/product5.jpg" alt="Orchid" />
+          <h2>Orchid</h2>
+          <p>$50.00</p>
+          <input type="number" class="quantity" value="1" min="1" />
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Carnation" data-price="15">
+          <img src="image/product6.jpg" alt="Carnation" />
+          <h2>Carnation</h2>
+          <p>$15.00</p>
+          <input type="number" class="quantity" value="1" min="1" />
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Chrysanthemum" data-price="45">
+          <img src="image/product7.jpg" alt="Chrysanthemum" />
+          <h2>Chrysanthemum</h2>
+          <p>$45.00</p>
+          <input type="number" class="quantity" value="1" min="1" />
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+      </main>
+
+    <!-- <main>
+      <div class="product" data-name="Lipstick" data-price="20">
+        <img src="images/lipstick.jpg" alt="Lipstick" />
+        <h2>Lipstick</h2>
+        <p>$20.00</p>
+        <input type="number" class="quantity" value="1" min="1" />
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product" data-name="Foundation" data-price="30">
+        <img src="images/foundation1.jpg" alt="Foundation" />
+        <h2>Foundation</h2>
+        <p>$30.00</p>
+        <input type="number" class="quantity" value="1" min="1" />
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product" data-name="Mascara" data-price="25">
+        <img src="images/mascara.jpg" alt="Mascara" />
+        <h2>Mascara</h2>
+        <p>$25.00</p>
+        <input type="number" class="quantity" value="1" min="1" />
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product" data-name="Blush" data-price="18">
+        <img src="images/blush.jpg" alt="Blush" />
+        <h2>Blush</h2>
+        <p>$18.00</p>
+        <input type="number" class="quantity" value="1" min="1" />
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </main> -->
+
+    <div id="cart-items"></div>
+
+    <script>
+      const cartCount = document.getElementById("cart-count");
+      const totalBill = document.getElementById("total-bill");
+      const cartItemsDiv = document.getElementById("cart-items");
+      let totalAmount = 0;
+      let cart = {};
+
+      document.querySelectorAll(".add-to-cart").forEach((button) => {
+        button.addEventListener("click", () => {
+          const product = button.parentElement;
+          const name = product.getAttribute("data-name");
+          const price = parseFloat(product.getAttribute("data-price"));
+          const quantity = parseInt(product.querySelector(".quantity").value);
+
+          addToCart(name, price, quantity);
+        });
+      });
+
+      function addToCart(name, price, quantity) {
+        if (cart[name]) {
+          cart[name].quantity += quantity;
+        } else {
+          cart[name] = { price, quantity };
+        }
+        updateCartDisplay();
+      }
+
+      function updateCartDisplay() {
+        cartCount.textContent = Object.values(cart).reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+        totalAmount = Object.values(cart).reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        totalBill.textContent = totalAmount.toFixed(2);
+
+        cartItemsDiv.innerHTML = "<h2>Items in Cart:</h2>";
+        for (let item in cart) {
+          cartItemsDiv.innerHTML += `
+            <div class="cart-item">
+              <span>${item} ($${cart[item].price.toFixed(2)}) x ${
+            cart[item].quantity
+          }</span>
+              <button onclick="removeItem('${item}')">Remove</button>
+            </div>
+          `;
+        }
+      }
+
+      function removeItem(itemName) {
+        delete cart[itemName];
+        updateCartDisplay();
+      }
+    </script>
+  </body>
+</html>
